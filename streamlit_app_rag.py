@@ -18,7 +18,7 @@ Context: {context}
 Answer:
 """
 
-selected_model = "gemini/gemini-2.5-flash" # nazwa modelu
+selected_model = "gemini-2.5-flash" # nazwa modelu
 model = CustomChatModel(model_name=selected_model) # obiekt wrappera modelu
 
 def answer_question(question, documents, model):
