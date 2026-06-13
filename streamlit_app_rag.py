@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 import shutil
 from docloader import load_documents_from_folder
 from embedder_rag import create_index, retrieve_docs
-
+from custom_chat_model import CustomChatModel
 st.set_page_config(layout="wide", page_title="Rag chatbot app")
 st.title("Rag chatbot app")
 
