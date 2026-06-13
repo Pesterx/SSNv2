@@ -14,14 +14,13 @@ class FAISSIndex:
             results.append(self.metadata[idx])
         return results
 
-embeddings     = HuggingFaceEmbeddings(
-    model_name=embed_model_id,
-    model_kwargs=model_kwargs
-)
-
+embed_model_id =  "sentence-transformers/all-MiniLM-L6-v2"  # lekki, dobry jakościowo
 model_kwargs = {"device": "cpu", "trust_remote_code": True}
 
 def create_index(documents):
+    embeddings     = HuggingFaceEmbeddings(
+    model_name=embed_model_id,
+    model_kwargs=model_kwargs) # załadowanie modelu embeddingowego
     texts = [doc["text"] for doc in documents] # wartości tekstowe wszystkich dokumentów
     metadata = [{"filename": doc["filename"], "text": doc["text"]} for doc in documents] # metadane wszystkich dokumentów, czyli słownik {filename:... , text:...}
 
@@ -34,6 +33,9 @@ def create_index(documents):
     return FAISSIndex(index, metadata)
 
 def retrieve_docs(query, faiss_index, k=3):
+    embeddings     = HuggingFaceEmbeddings(
+    model_name=embed_model_id,
+    model_kwargs=model_kwargs)# załadowanie modelu embeddingowego
     query_embedding = np.array([embeddings.embed_query(query)]).astype("float32") # embeddowanie zapytania (query)
     results = faiss_index.similarity_search(query_embedding, k) # zwrócenie wyników przeuszkiwania
     return results
