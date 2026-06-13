@@ -76,7 +76,7 @@ if question := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": question})
     st.chat_message("user").write(question)
     if st.session_state.retrieve_files:
-        rrelated_documents = retrieve_docs(question, st.session_state.faiss_index) # wyszukanie najbardziej pasujących do query dokumentów
+        related_documents = retrieve_docs(question, st.session_state.faiss_index) # wyszukanie najbardziej pasujących do query dokumentów
         answer = answer_question(question, related_documents, model)
     else:
         answer = answer_question(question, [], model)
